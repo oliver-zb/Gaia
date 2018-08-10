@@ -9,131 +9,132 @@ from matplotlib import animation
 
 start = timeit.default_timer()
 
-def preview_csv(filename, limit):
-    if not os.path.isfile(filename):
-        print('ERROR: "{0}" file not found'.format(filename))
-        exit()
-    d = open(filename)
-    with open(filename, 'r', encoding='utf-8') as csv_file:
-        reader = csv.reader(d, delimiter=limit)  # for some datasets use ; for other use ,
-        ncol = len(next(reader))
-        print("number of columns:", ncol)  # counts number of columns
-
-        dict = {rows[1]:[rows[5],rows[6],rows[7],rows[8],rows[9],rows[10],rows[11],rows[12],rows[13],rows[14],
-            rows[15],rows[16],rows[17],rows[18],rows[19],rows[20],rows[21],rows[22],rows[23],rows[24],
-            rows[25],rows[66],rows[67],rows[73],rows[74]] for rows in reader}
-        "values in dict: [0]: ra, [1]: ra_err, [2]: dec, [3]: dec_err, [4]: parallax, [5]: parallax_err," \
-        "[6]: parallax_over_err, [7]: pmra (mu_alpha*), [8]: pmra_err, [9]: pmdec (mu_delta), [10]: pmdec_err," \
-        "[11]: ra_dec_corr, [12]: ra_parallax_corr, [13]: ra_pmra_corr, [14]: ra_pmdec_corr," \
-        "[15]: dec_parallax_corr, [16]: dec_pmra_corr, [17]: dec_pmdec_corr, [18]: parallax_pmra_corr," \
-        "[19]: parallax_pmdec_corr, [20]: pmra_pmdec_corr, [21]: radial_velocity, [22]: radial_velocity_err," \
-        "[23]: l (galactig longitude), [24]: b (galactig latitude), [25]: ecliptic_longitude, [26]: ecliptic_latitude"
-#    print('len(dict) initially:', len(dict)) # from read from csv
-
-
-    delete = []
-
-    for key in dict:
-        if any(s == '' for s in dict[key][1:]):
-            delete.append(key)
-            "contains empty string, continue now"
-            continue
-
-    for i in delete:
-        dict.pop(i, None)
-#    print('len(dict) without empty cells', len(dict))
-    return dict
-
-#data = preview_csv("data/GaiaSource_2851858288640_1584379458008952960.csv", ',') # approx. 41 seconds
-data = preview_csv("data/GaiaSource_6714230465835878784_6917528443525529728.csv", ';') # approx 8 seconds
-# #print('type(data):', type(data))
-data.update(preview_csv("data/GaiaSource_2851858288640_1584379458008952960.csv", ','))
-data.update(preview_csv("data/GaiaSource_1584380076484244352_2200921635402776448.csv", ','))
-data.update(preview_csv("data/GaiaSource_2200921875920933120_3650804325670415744.csv", ','))
-data.update(preview_csv("data/GaiaSource_3650805523966057472_4475721411269270528.csv", ','))
-data.update(preview_csv("data/GaiaSource_4475722064104327936_5502601461277677696.csv", ','))
-data.update(preview_csv("data/GaiaSource_5502601873595430784_5933051501826387072.csv", ','))
-data.update(preview_csv("data/GaiaSource_5933051914143228928_6714230117939284352.csv", ','))
-
-delete = []
-for key in data:
-    if eval(data[key][4]) <= 0.001:
-        delete.append(key)
-        "to delete stars with too small parallax (data too bad)"
-for i in delete:
-    data.pop(i, None)
-#print('len(data) without too small parallaxes:', len(data))
-
-key = list(data.keys())
-ra = []
-dec = []
-parallax = []
-pmra = []
-pmdec = []
-rv = []
-
-for key in data:
-    ra.append(eval(data[key][0]))
-    dec.append(eval(data[key][2]))
-    parallax.append(eval(data[key][4]))
-    pmra.append(eval(data[key][7]))
-    pmdec.append(eval(data[key][9]))
-    rv.append(eval(data[key][21]))
-
-
-#ra = [float(i) for i in ra]
-#dec = [float(i) for i in dec]
-#parallax = [float(i) for i in parallax]
-dist = [1 / i for i in parallax]  # / 1000 because of milliarcsec, dimension: parsec -> velocities make sense, positions not
-#pmra = [float(i) for i in pmra]
-#pmdec = [float(i) for i in pmdec]
-#rv = [float(i) for i in rv]
-
-# print('minimal parallax', min(parallax))
-
-#print('ra[0] = ',ra[0], 'type ra[0]', type(ra[0]), 'len(ra) = ', len(ra))
-"normalizes components such that mean of each value is zero => subtract mean of every variable"
-#ra_m = sum(ra)/len(ra)
-#print('ra_m =', ra_m)
-#ra_new = [i - ra_m for i in ra]
-#print('ra_new =', ra_new)
-# dec_m = sum(dec)/len(dec)
-# dec_new = [i - dec_m for i in dec]
-# parallax_m = sum(parallax)/len(parallax)
-# dist = [1 / i for i in parallax]
-# parallax_new = [i - parallax_m for i in parallax]
-# pmra_m = sum(pmdec)/len(pmra)
-# pmra_new = [i - pmra_m for i in pmra]
-# pmdec_m = sum(pmdec)/len(pmdec)
-# pmdec_new = [i - pmdec_m for i in pmdec]
-# rv_m = sum(rv)/len(rv)
-# rv_new = [i - rv_m for i in rv]
-
-x = np.array(dist * np.cos(dec) * np.cos(ra))
-y = np.array(dist * np.cos(dec) * np.sin(ra))
-z = np.array(dist * np.sin(dec))
-
-q = np.array([x,y,z])
-
-
-#print('q[:5]',q[:4])
-
-"4.740 to convert mas/year*dist in parsec to km/sec to have same dimension as rv"
-# v_x = dist * (rv * np.cos(dec) * 4.740 * (np.cos(ra) - np.sin(ra) * pmra - np.cos(ra) * np.sin(dec) * pmdec))
-# v_y = dist * (rv * np.cos(dec) * 4.740 * (np.sin(ra) + np.cos(ra) * pmra - np.sin(ra) * np.sin(dec) * pmdec))
-# v_z = dist * (rv * np.sin(dec) + 4.740 * np.cos(dec) * pmdec)
-
+# def preview_csv(filename, limit):
+#     if not os.path.isfile(filename):
+#         print('ERROR: "{0}" file not found'.format(filename))
+#         exit()
+#     d = open(filename)
+#     with open(filename, 'r', encoding='utf-8') as csv_file:
+#         reader = csv.reader(d, delimiter=limit)  # for some datasets use ; for other use ,
+#         ncol = len(next(reader))
+#         print("number of columns:", ncol)  # counts number of columns
+#
+#         dict = {rows[1]:[rows[5],rows[6],rows[7],rows[8],rows[9],rows[10],rows[11],rows[12],rows[13],rows[14],
+#             rows[15],rows[16],rows[17],rows[18],rows[19],rows[20],rows[21],rows[22],rows[23],rows[24],
+#             rows[25],rows[66],rows[67],rows[73],rows[74]] for rows in reader}
+#         "values in dict: [0]: ra, [1]: ra_err, [2]: dec, [3]: dec_err, [4]: parallax, [5]: parallax_err," \
+#         "[6]: parallax_over_err, [7]: pmra (mu_alpha*), [8]: pmra_err, [9]: pmdec (mu_delta), [10]: pmdec_err," \
+#         "[11]: ra_dec_corr, [12]: ra_parallax_corr, [13]: ra_pmra_corr, [14]: ra_pmdec_corr," \
+#         "[15]: dec_parallax_corr, [16]: dec_pmra_corr, [17]: dec_pmdec_corr, [18]: parallax_pmra_corr," \
+#         "[19]: parallax_pmdec_corr, [20]: pmra_pmdec_corr, [21]: radial_velocity, [22]: radial_velocity_err," \
+#         "[23]: l (galactig longitude), [24]: b (galactig latitude), [25]: ecliptic_longitude, [26]: ecliptic_latitude"
+# #    print('len(dict) initially:', len(dict)) # from read from csv
+#
+#
+#     delete = []
+#
+#     for key in dict:
+#         if any(s == '' for s in dict[key][1:]):
+#             delete.append(key)
+#             "contains empty string, continue now"
+#             continue
+#
+#     for i in delete:
+#         dict.pop(i, None)
+# #    print('len(dict) without empty cells', len(dict))
+#     return dict
+#
+# #data = preview_csv("data/GaiaSource_2851858288640_1584379458008952960.csv", ',') # approx. 41 seconds
+# data = preview_csv("data/GaiaSource_6714230465835878784_6917528443525529728.csv", ';') # approx 8 seconds
+# # #print('type(data):', type(data))
+# data.update(preview_csv("data/GaiaSource_2851858288640_1584379458008952960.csv", ','))
+# data.update(preview_csv("data/GaiaSource_1584380076484244352_2200921635402776448.csv", ','))
+# data.update(preview_csv("data/GaiaSource_2200921875920933120_3650804325670415744.csv", ','))
+# data.update(preview_csv("data/GaiaSource_3650805523966057472_4475721411269270528.csv", ','))
+# data.update(preview_csv("data/GaiaSource_4475722064104327936_5502601461277677696.csv", ','))
+# data.update(preview_csv("data/GaiaSource_5502601873595430784_5933051501826387072.csv", ','))
+# data.update(preview_csv("data/GaiaSource_5933051914143228928_6714230117939284352.csv", ','))
+#
+# delete = []
+# for key in data:
+#     if eval(data[key][4]) <= 0.001:
+#         delete.append(key)
+#         "to delete stars with too small parallax (data too bad)"
+# for i in delete:
+#     data.pop(i, None)
+# #print('len(data) without too small parallaxes:', len(data))
+#
+# key = list(data.keys())
+# ra = []
+# dec = []
+# parallax = []
+# pmra = []
+# pmdec = []
+# rv = []
+#
+# for key in data:
+#     ra.append(eval(data[key][0]))
+#     dec.append(eval(data[key][2]))
+#     parallax.append(eval(data[key][4]))
+#     pmra.append(eval(data[key][7]))
+#     pmdec.append(eval(data[key][9]))
+#     rv.append(eval(data[key][21]))
+#
+#
+# #ra = [float(i) for i in ra]
+# #dec = [float(i) for i in dec]
+# #parallax = [float(i) for i in parallax]
+# dist = [1 / i for i in parallax]  # / 1000 because of milliarcsec, dimension: parsec -> velocities make sense, positions not
+# #pmra = [float(i) for i in pmra]
+# #pmdec = [float(i) for i in pmdec]
+# #rv = [float(i) for i in rv]
+#
+# # print('minimal parallax', min(parallax))
+#
+# #print('ra[0] = ',ra[0], 'type ra[0]', type(ra[0]), 'len(ra) = ', len(ra))
+#
+# "normalizes components such that mean of each value is zero => subtract mean of every variable"
+# #ra_m = sum(ra)/len(ra)
+# #print('ra_m =', ra_m)
+# #ra_new = [i - ra_m for i in ra]
+# #print('ra_new =', ra_new)
+# # dec_m = sum(dec)/len(dec)
+# # dec_new = [i - dec_m for i in dec]
+# # parallax_m = sum(parallax)/len(parallax)
+# # dist = [1 / i for i in parallax]
+# # parallax_new = [i - parallax_m for i in parallax]
+# # pmra_m = sum(pmdec)/len(pmra)
+# # pmra_new = [i - pmra_m for i in pmra]
+# # pmdec_m = sum(pmdec)/len(pmdec)
+# # pmdec_new = [i - pmdec_m for i in pmdec]
+# # rv_m = sum(rv)/len(rv)
+# # rv_new = [i - rv_m for i in rv]
+#
+# x = np.array(dist * np.cos(dec) * np.cos(ra))
+# y = np.array(dist * np.cos(dec) * np.sin(ra))
+# z = np.array(dist * np.sin(dec))
+#
+# q = np.array([x,y,z])
+#
+#
+# #print('q[:5]',q[:4])
+#
+# "4.740 to convert mas/year*dist in parsec to km/sec to have same dimension as rv"
+# # v_x = dist * (rv * np.cos(dec) * 4.740 * (np.cos(ra) - np.sin(ra) * pmra - np.cos(ra) * np.sin(dec) * pmdec))
+# # v_y = dist * (rv * np.cos(dec) * 4.740 * (np.sin(ra) + np.cos(ra) * pmra - np.sin(ra) * np.sin(dec) * pmdec))
+# # v_z = dist * (rv * np.sin(dec) + 4.740 * np.cos(dec) * pmdec)
+#
 "transverse velocities in ra, dec, pmx = mu_x(arcseconds/year) * distance * 4.740"
 "when d not /1000 for position but for velocity (0.0047) -> position (everything within 1000 pc) and velocity make sense but this must be wrong"
 "when d/1000 for position and velocity (4.47) -> positions dont make sense (everything within 1 pc)"
-v_tra = np.array(pmra) * np.array(dist) * 0.00474 # x_2 with 4.74 -> positions make sense but this method must be wrong, x with 0.00474 -> positions dont ma
-v_tdec = np.array(pmdec) * np.array(dist) * 0.00474
-"cartesian velocities, 1/977780 to convert km/sec to pc/year"
-v_x = (rv * np.cos(dec) * np.cos(ra) - v_tra * np.sin(ra) - v_tdec * np.sin(dec) * np.cos(ra)) / 977780
-v_y = (rv * np.cos(dec) * np.sin(ra) + v_tra * np.cos(ra) - v_tdec * np.sin(dec) * np.cos(ra)) / 977780
-v_z = (rv * np.sin(dec) + v_tdec * np.cos(dec)) / 977780
-v = np.array([v_x,v_y,v_z])
-#
+# v_tra = np.array(pmra) * np.array(dist) * 0.00474 # x_2 with 4.74 -> positions make sense but this method must be wrong, x with 0.00474 -> positions dont ma
+# v_tdec = np.array(pmdec) * np.array(dist) * 0.00474
+# "cartesian velocities, 1/977780 to convert km/sec to pc/year"
+# v_x = (rv * np.cos(dec) * np.cos(ra) - v_tra * np.sin(ra) - v_tdec * np.sin(dec) * np.cos(ra)) / 977780
+# v_y = (rv * np.cos(dec) * np.sin(ra) + v_tra * np.cos(ra) - v_tdec * np.sin(dec) * np.cos(ra)) / 977780
+# v_z = (rv * np.sin(dec) + v_tdec * np.cos(dec)) / 977780
+# v = np.array([v_x,v_y,v_z])
+
 # "saves cartesian coordinates and velocities"
 
 "2: d/1000, 4.47    3: d*1, 4.47,    4 d*1, 0.0047"
