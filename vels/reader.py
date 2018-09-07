@@ -1,3 +1,5 @@
+import pickle
+
 fil = open('GaiaSource_1584380076484244352_2200921635402776448.csv')
 head = fil.readline().split(',')
 
@@ -21,7 +23,7 @@ print(cols)
 for i in cols:
     print(head[i])
 
-for s in range(5):
+for s in range(2):
     star = fil.readline().split(',')
     for i in (5,7,9,12,14,66,78):
         print(head[i],end=' ')
@@ -47,8 +49,16 @@ teff_ok = 5*(lots[:,14]-lots[:,13]) < lots[:,12]
 
 lots = lots[parallax_ok*pmra_ok*pmdec_ok*rv_ok*teff_ok,:]
 
+fil = open('star1.pkl','wb')
+pickle.dump(lots,fil)
+fil.close()
+
+ra, dec, parallax = lots[:,0], lots[:,2], lots[:,4]
+pmra, pmdec, rv = lots[:,6], lots[:,8], lots[:,10]
+teff = lots[:,12]
+
 for s in range(1):
-    print(lots[s,0],lots[s,2],lots[s,4],lots[s,6],lots[s,8],lots[s,10],
-          lots[s,12])
+    print(ra[s],dec[s],parallax[s],pmra[s],pmdec[s],rv[s],teff[s])
+
 print(lots.shape)
 

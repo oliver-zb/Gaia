@@ -20,8 +20,10 @@ C = matrix([ [ cos(x), -sin(x), 0 ],
              [ sin(x),  cos(x), 0 ],
              [      0,       0, 1 ] ])
 
-M = matrix([ [  1,  0,  0 ],
+S = matrix([ [  1,  0,  0 ],
              [  0, -1,  0 ],
              [  0,  0,  1 ] ])
 
-print(M*A*B*C*M)
+M = S*A*B*C*S
+
+
