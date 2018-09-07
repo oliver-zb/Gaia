@@ -1,5 +1,5 @@
 import pickle
-from numpy import concatenate, pi, sin, cos, mean
+from numpy import concatenate, pi, sin, cos, mean, median
 from rotmatr import M
 import matplotlib.pyplot as pl
 
@@ -30,15 +30,15 @@ pmra *= f
 pmdec *= f
 
 csra, snra = cos(ra), sin(ra)
-csdel, sndel = cos(ra), sin(ra)
+csdec, sndec = cos(dec), sin(dec)
 
-x = r*csdel*csra
-y = r*csdel*snra
-z = r*sndel
+x = r*csdec*csra
+y = r*csdec*snra
+z = r*sndec
 
-vx = csdel*csra*rv - r*sndel*csra*pmdec - r*csdel*snra*pmra
-vy = csdel*snra*rv - r*sndel*snra*pmdec + r*csdel*csra*pmra
-vz = sndel*rv      + r*csdel*pmdec
+vx = csdec*csra*rv - r*sndec*csra*pmdec - r*csdec*snra*pmra
+vy = csdec*snra*rv - r*sndec*snra*pmdec + r*csdec*csra*pmra
+vz = sndec*rv      + r*csdec*pmdec
 
 X = M[0,0]*x + M[0,1]*y + M[0,2]*z
 Y = M[1,0]*x + M[1,1]*y + M[1,2]*z
@@ -48,7 +48,7 @@ U = M[0,0]*vx + M[0,1]*vy + M[0,2]*vz
 V = M[1,0]*vx + M[1,1]*vy + M[1,2]*vz
 W = M[2,0]*vx + M[2,1]*vy + M[2,2]*vz
 
-sel = teff < 6000
+sel = teff > 6000
 rsel = r[sel]
 print(rsel.shape)
 Xsel = X[sel]
@@ -58,8 +58,10 @@ Usel = U[sel]
 Vsel = V[sel]
 Wsel = W[sel]
 
-print(mean(Usel),mean(Vsel),mean(Wsel))
-print((mean(Usel)**2+mean(Vsel)**2+mean(Wsel)**2)**.5)
+print(median(Usel),median(Vsel),median(Wsel))
+print((median(Usel)**2+median(Vsel)**2+median(Wsel)**2)**.5)
 
-pl.plot(U,V,'.')
+pl.plot(x[sel],vx[sel],'.')
+#pl.hist(Usel,bins=100)
+#pl.gca().set_aspect('equal')
 pl.show()
