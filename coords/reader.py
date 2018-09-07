@@ -39,12 +39,11 @@ for fname in ('GaiaSource_1584380076484244352_2200921635402776448.csv',
     parallax_ok = 10*lots[:,5] < lots[:,4]
     pmra_ok = 10*lots[:,7] < abs(lots[:,6])
     pmdec_ok = 10*lots[:,9] < abs(lots[:,8])
-    rv_ok = 10*lots[:,11] < abs(lots[:,10])
+    rv_ok = lots[:,11] < 5
     teff_ok = 5*(lots[:,14]-lots[:,13]) < lots[:,12]
 
     lots = lots[near*parallax_ok*pmra_ok*pmdec_ok*rv_ok*teff_ok,:]
     print(lots.shape)
-
 
     pkfname = 'stars'+str(fnum)+'.pkl'
     fil = open(pkfname,'wb')
