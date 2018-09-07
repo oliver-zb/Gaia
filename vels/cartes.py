@@ -1,10 +1,19 @@
 import pickle
-from numpy import pi, sin, cos, mean
+from numpy import concatenate, pi, sin, cos, mean
 from rotmatr import M
+import matplotlib.pyplot as pl
 
-fil = open('star1.pkl','rb')
-lots = pickle.load(fil)
-fil.close()
+lyst = []
+
+for fnum in range(8):
+    pkfname = 'stars'+str(fnum)+'.pkl'
+    fil = open(pkfname,'rb')
+    arr = pickle.load(fil)
+    lyst.append(arr)
+    fil.close()
+
+lots = concatenate(lyst, axis=0)
+print(lots.shape)
 
 ra, dec, parallax = lots[:,0], lots[:,2], lots[:,4]
 pmra, pmdec, rv = lots[:,6], lots[:,8], lots[:,10]
@@ -39,7 +48,7 @@ U = M[0,0]*vx + M[0,1]*vy + M[0,2]*vz
 V = M[1,0]*vx + M[1,1]*vy + M[1,2]*vz
 W = M[2,0]*vx + M[2,1]*vy + M[2,2]*vz
 
-sel = (r < 100) * (teff > 6500)
+sel = teff < 6000
 rsel = r[sel]
 print(rsel.shape)
 Xsel = X[sel]
@@ -51,3 +60,6 @@ Wsel = W[sel]
 
 print(mean(Usel),mean(Vsel),mean(Wsel))
 print((mean(Usel)**2+mean(Vsel)**2+mean(Wsel)**2)**.5)
+
+pl.plot(U,V,'.')
+pl.show()
