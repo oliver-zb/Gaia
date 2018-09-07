@@ -47,20 +47,11 @@ U = M[0,0]*vx + M[0,1]*vy + M[0,2]*vz
 V = M[1,0]*vx + M[1,1]*vy + M[1,2]*vz
 W = M[2,0]*vx + M[2,1]*vy + M[2,2]*vz
 
-sel = (teff > 6500) * (teff < 7000)
-rsel = r[sel]
-print(rsel.shape)
-Xsel = X[sel]
-Ysel = Y[sel]
-Zsel = Z[sel]
-Usel = U[sel]
-Vsel = V[sel]
-Wsel = W[sel]
-
-print(median(Usel),median(Vsel),median(Wsel))
-print((median(Usel)**2+median(Vsel)**2+median(Wsel)**2)**.5)
-
-pl.plot(Xsel,Vsel,'.')
-#pl.hist(Usel,bins=100)
-pl.gca().set_aspect('equal')
+for T in range(3000,7200,200):
+    sel = (teff >= T-100) * (teff < T+100)
+    pl.plot(T,median(U[sel]),'.',color='cyan',label='U')
+    pl.plot(T,median(V[sel]),'.',color='magenta',label='V')
+    pl.plot(T,median(W[sel]),'.',color='red',label='W')
+    print(T,(median(U[sel])**2+median(V[sel])**2+median(W[sel])**2)**.5)
+pl.legend()
 pl.show()
