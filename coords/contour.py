@@ -2,6 +2,7 @@ import pickle
 from numpy import concatenate, pi, sin, cos, mean, median
 from rotmatr import M
 import matplotlib.pyplot as pl
+from matplotlib import colors
 
 lyst = []
 
@@ -47,13 +48,10 @@ U = M[0,0]*vx + M[0,1]*vy + M[0,2]*vz
 V = M[1,0]*vx + M[1,1]*vy + M[1,2]*vz
 W = M[2,0]*vx + M[2,1]*vy + M[2,2]*vz
 
-for T in range(3000,7200,200):
-    sel = (teff >= T-100) * (teff < T+100)
-    pl.plot(T,median(U[sel]),'.',color='cyan',label='U')
-    pl.plot(T,median(V[sel]),'.',color='magenta',label='V')
-    pl.plot(T,median(W[sel]),'.',color='red',label='W')
-    print(T,(median(U[sel])**2+median(V[sel])**2+median(W[sel])**2)**.5)
-pl.legend()
-pl.xlabel('Teff in K')
-pl.ylabel('U,V,W in km/sec')
+sel = (r < 100) * (abs(U) < 100) * (abs(V) < 100)
+print(r[sel].shape)
+pl.hist2d(U[sel], V[sel], bins=100, norm=colors.LogNorm())
+pl.xlabel('U')
+pl.ylabel('V')
+pl.gca().set_aspect('equal')
 pl.show()

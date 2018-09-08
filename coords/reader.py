@@ -35,7 +35,7 @@ for fname in ('GaiaSource_1584380076484244352_2200921635402776448.csv',
     lots = numpy.genfromtxt(fname, delimiter=',', skip_header=1,
                             filling_values=-999, usecols=cols)
 
-    near = lots[:,4] > 10
+    near = lots[:,4] > 1
     parallax_ok = 10*lots[:,5] < lots[:,4]
     pmra_ok = 10*lots[:,7] < abs(lots[:,6])
     pmdec_ok = 10*lots[:,9] < abs(lots[:,8])
