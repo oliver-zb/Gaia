@@ -1,0 +1,171 @@
+\documentclass{aastex62}
+
+\usepackage{amsmath}
+\newcommand{\vdag}{(v)^\dagger}
+\newcommand\aastex{AAS\TeX}
+\newcommand\latex{La\TeX}
+
+
+\submitjournal{RNAAS}
+
+\shorttitle{Local Kinematics and the LSR}
+\shortauthors{Zbinden et al.}
+
+\begin{document}
+	
+	\title{Local Kinematics and the Local Standard of Rest with \textit{Gaia} Radial Velocity Survey}
+	
+	\correspondingauthor{Oliver Zbinden \& Prasenjit Saha}
+	\affil{Physik Institut, Universit\"at Z\"urich, Winterthurerstrasse 190, 8057 Z\"urich, Switzerland}
+	\email{oliver.zbinden@uzh.ch, psaha@physik.uzh.ch}
+	
+	\author{Oliver Zbinden}
+	\affil{Physik Institut, Universit\"at Z\"urich, Winterthurerstrasse 190, 8057 Z\"urich, Switzerland}
+	
+	
+	\author{Prasenjit Saha}
+	\affil{Physik Institut, Universit\"at Z\"urich, Winterthurerstrasse 190, 8057 Z\"urich, Switzerland}
+%	\affil{Institute for Computational Science, Universit\"at Z\"urich, Winterthurerstrasse 190, 8057 Z\"urich, Switzerland}
+
+	\keywords{Galaxy: fundamental parameters, kinematics and dynamics, solar neighborhood}
+	
+	\section{Introduction}
+	\noindent
+	The amount of data provided by the \textit{Gaia} mission \citep{gaiamission} is significantly larger than previous data sets. Therefore, it makes sense to study stellar motions based on much more values with better statistics. 
+	\noindent
+	\\
+	We want to answer two questions:
+	\begin{itemize}
+		\item What is the mean motion of stars in the solar neighborhood, and is there a temperature dependence?
+		\item Can we determine the local standard of rest (LSR) with a very simple approach still obtaining  satisfying results?
+	\end{itemize}
+	
+	\section{Data selection \& Data transformation} 
+	\noindent
+	Our analysis is based on data from the \textit{Gaia} DR2 radial velocity survey\footnote{\url{http://cdn.gea.esac.esa.int/Gaia/gdr2/gaia_source_with_rv/csv/}}, closer than $100\rm pc$ away from our Sun. Furthermore, all stars with either $\frac{\sigma_{\alpha^*}}{\alpha^*}$,$\frac{\sigma_{\delta}}{\delta}$ or $\frac{\sigma_{\bar{\omega}}}{\bar{\omega}}$ larger than $0.1$, and $\sigma_{v_{rad}}\leq$ $|5|$ $\rm km~s^{-1}$ are neglected.
+	\\
+	To obtain the velocities $\mu_{\alpha^*}$, $\mu_{\delta}$ and $v_{rad}$ are transformed to Cartesian coordinates using
+	
+	\begin{equation}
+	\vec{v}_{Equat} = 
+	\left(
+	\begin{array}{c}
+	v_x\\
+	v_y\\
+	v_z
+	\end{array}
+	\right) =
+	\left(
+	\begin{array}{c}
+	rv \cos{(\alpha)} \cos{(\delta)} - d k \mu_{\alpha*} \cos{(\alpha)} \sin{(\delta)} - d k \mu_{\delta} \sin{(\alpha)}\\
+	rv \sin{(\alpha)} \cos{(\delta)} - d k  \mu_{\delta} \sin{(\alpha)} \sin{(\delta)} + d k \mu_{\alpha*} \cos{(\alpha)}\\
+	rv \sin{(\delta)} + d k \mu_{\delta} \cos{(\delta)}
+	\end{array}
+	\right),	
+	\end{equation}
+	
+	\noindent
+	in $\rm km~s^{-1}$ where $d$ is the distance, and $k$ is introduced to transform $\rm au~yr^{-1}$ to $\rm km~s^{-1}$. These velocities in Equatorial coordinates are transformed to Galactic coordinates, following equations 3.60 \& 3.61 of the \textit{Gaia} DR2 documentation \citep{documentation}.
+	
+	\section{Local kinematics} \label{localkin}
+	\noindent
+	Stars similar to our Sun are confined to a thin disk, orbiting the center of the Galaxy \citep{keel}. Because of gravitational potential of all objects in the Milky Way, stars cross the disk in an oscillating motion as well as they do in radial direction. Since all stars are assumed to follow such motions, this should result in a statistically steady state \citep{tayler}. The dataset only allowed to examine stars with a temperature between $3400\rm K$ and $7600\rm K$. The stars were grouped by temperature $T_i=(3400+i\cdot200)\rm K$, where each group contained all objects within $T_i-100\rm K<T_{star}<T_i+100\rm K$. Then, the mean values for each component of $\left( U, V, W\right)$ were calculated for each temperature bin (see figure \ref{fig:lsrmean}). U and W are approximately constant over almost the entire temperature range. We also note a significant decrease of V at $5800\rm K$, and that its values are less constant for temperatures below. However, the differences are less than $3\rm km~s^{-1}$. It is interesting to see that the motions of the stars seem to have a temperature-independent behavior over $2400\rm K$. It would be interesting to see if the stars keep to change their velocities as they tend to for the highest temperatures once more data is available.
+
+%	\begin{figure}[ht!]
+%		\plotone{lsr_mean.png}
+%%		\caption{}
+%		\label{fig:lsrmean}
+%	\end{figure}
+
+	\begin{figure}[ht!]
+	\plotone{plots.png}
+	%		\caption{}
+	\label{fig:lsrmean}
+	\end{figure}
+
+	\section{Local Standard of Rest} \label{lsr}
+	\noindent
+	In this section we want to determine the LSR, which follows the mean motion of the disk material in the solar neighborhood \citep{shu}. Because this is not only stars, but also gas, and dust, we cannot just take the values found for the local kinematics. The idea for determining the LSR in a simple way is the following: Since hotter stars have a shorter lifetime than colder ones, we assume that they are in average younger. Because the stars in our sample are most likely created in gas clouds in the galactic disks, their mean velocities should be close to the velocity of the gas. Therefore, we look at the velocities of high temperature stars. As shown in table \ref{tab:vel}, the highest temperature with sufficient data is $6800\rm K$ with $\left( U, V, W\right)_\odot=\left( 11.92\pm1.17, 11.87\pm0.72, 6.44\pm0.46 \right)\rm km~s^{-1}$.
+	\\
+	Compared to other results, e.g. \citep{schoenrich}, \citep{boby}, \citep{anotherlsr} or \citep{ding}, one can see that our values are within uncertainties with \textit{Sch\"onrich et al.} which probably enjoys the highest acceptance. However, as one can see there is not really a consensus for these velocities and it is not clear how the different results should be interpreted.
+	
+		
+	\begin{deluxetable*}{crrrrr}[h!]
+		\tablecaption{Temperature dependent velocities \label{tab:vel}}
+		\tablecolumns{6}
+		\tablewidth{0pt}
+		\tablehead{
+			\colhead{Temperature} &
+			\colhead{\# of stars} &
+			\colhead{U} & \colhead{V} & \colhead{W} \\
+			\colhead{K} & \colhead{} &
+			\colhead{$\rm km~s^{-1}$} & \colhead{$\rm km~s^{-1}$} & \colhead{$\rm km~s^{-1}$}
+		}
+		\startdata
+		3400 & 114 & 10.59 $\pm$ 3.85 & 24.34 $\pm$ 2.55 & 6.46 $\pm$ 2.18 \\
+		3600 & 857 & 10.04 $\pm$ 1.35 & 24.38 $\pm$ 0.93 & 8.24 $\pm$ 0.73 \\
+		3800 & 2769 & 9.13 $\pm$ 0.73 & 23.63 $\pm$ 0.55 & 8.19 $\pm$ 0.4 \\
+		4000 & 11519 & 9.97 $\pm$ 0.35 & 21.73 $\pm$ 0.25 & 8.39 $\pm$ 0.19 \\
+		4200 & 10711 & 10.02 $\pm$ 0.37 & 22.12 $\pm$ 0.27 & 7.84 $\pm$ 0.19 \\
+		4400 & 3992 & 10.35 $\pm$ 0.58 & 23.07 $\pm$ 0.48 & 7.95 $\pm$ 0.32 \\
+		4600 & 3576 & 10.14 $\pm$ 0.62 & 21.8 $\pm$ 0.45 & 7.4 $\pm$ 0.33 \\
+		4800 & 5271 & 9.46 $\pm$ 0.52 & 23.14 $\pm$ 0.38 & 7.86 $\pm$ 0.28 \\
+		5000 & 5356 & 10.9 $\pm$ 0.53 & 22.5 $\pm$ 0.41 & 7.86 $\pm$ 0.28 \\
+		5200 & 3191 & 9.72 $\pm$ 0.66 & 23.2 $\pm$ 0.53 & 7.91 $\pm$ 0.35 \\
+		5400 & 3769 & 10.44 $\pm$ 0.66 & 23.88 $\pm$ 0.5 & 8.57 $\pm$ 0.34 \\
+		5600 & 3777 & 10.22 $\pm$ 0.62 & 22.84 $\pm$ 0.46 & 7.63 $\pm$ 0.33 \\
+		5800 & 4208 & 10.43 $\pm$ 0.61 & 24.36 $\pm$ 0.45 & 7.39 $\pm$ 0.34 \\
+		6000 & 2822 & 9.35 $\pm$ 0.65 & 18.3 $\pm$ 0.46 & 7.21 $\pm$ 0.33 \\
+		6200 & 2198 & 9.86 $\pm$ 0.71 & 15.17 $\pm$ 0.45 & 7.57 $\pm$ 0.33 \\
+		6400 & 1461 & 8.77 $\pm$ 0.73 & 12.99 $\pm$ 0.5 & 7.21 $\pm$ 0.34 \\
+		6600 & 886 & 9.93 $\pm$ 0.88 & 11.64 $\pm$ 0.5 & 6.91 $\pm$ 0.38 \\
+		6800 & 375 & 11.92 $\pm$ 1.17 & 11.87 $\pm$ 0.72 & 6.44 $\pm$ 0.46 \\
+		7000 & 21 & 5.63 $\pm$ 3.11 & 7.81 $\pm$ 2.71 & 11.0 $\pm$ 2.4 \\
+		\enddata
+%		\tablecomments{}
+	\end{deluxetable*}
+
+	\begin{deluxetable*}{ccrrrr}[h!]
+	\tablecaption{Distance dependent LSR velocities for T = 6800 K \label{tab:vel}}
+	\tablecolumns{6}
+	\tablewidth{0pt}
+	\tablehead{
+		\colhead{distance} &
+		\colhead{\# of stars} &
+		\colhead{U} & \colhead{V} & \colhead{W} \\
+		\colhead{pc} & \colhead{} &
+		\colhead{$\rm km~s^{-1}$} & \colhead{$\rm km~s^{-1}$} & \colhead{$\rm km~s^{-1}$}
+	}
+	\startdata
+	100 & 375 & 11.92 $\pm$ 1.17 & 11.87 $\pm$ 0.72 & 6.44 $\pm$ 0.46 \\
+	200 & 379 & 11.91 $\pm$ 1.16 & 11.92 $\pm$ 0.72 & 6.32 $\pm$ 0.47 \\
+	400 & 381 & 11.71 $\pm$ 1.17 & 11.79 $\pm$ 0.72 & 6.98 $\pm$ 0.34 \\
+	600 & 387 & 11.36 $\pm$ 1.18 & 11.86 $\pm$ 0.73 & 6.14 $\pm$ 0.51 \\
+	1000 & 391 & 11.07 $\pm$ 1.24 & 11.67 $\pm$ 0.77 & 5.70 $\pm$ 0.58 \\
+	\enddata
+	%		\tablecomments{}
+\end{deluxetable*}
+
+	\newpage
+
+	\section{Conclusion}
+	\noindent
+	It was shown that the motion of nearby stars is almost independent of temperature for stars with T$\leq 5800\rm K$. At this temperature, $V_\odot$ drops significantly. Since there is not enough data on the high-temperature area, it is not possible to make predictions how velocities change there.
+	\\
+	As shown in section \ref{lsr}, recent results of the LSR are not consistent. Therefore, it is not clear if we really have found a simple but robust way to determine the LSR. It would be interesting to test our method again, once there is more data accessible for stars with temperatures above $6800\rm K$.
+	
+	\begin{thebibliography}{}
+		
+		\bibitem[Gaia Collaboration et al. (2016)]{gaiamission} Gaia Collaboration et al. 2016, Description of the Gaia mission (spacecraft, instruments, survey and measurement principles, and operations)
+		\bibitem[Gaia DR2 Documentation (2018)]{documentation} European Space Agency \& Gaia Data Processing and Analysis Consortium, 2018, Documentation release 1.0
+		\bibitem[Keel (2007)]{keel}W.C. Keel, 2007, The Road to Galaxy Formation, Springer, Second edition
+		\bibitem[Tayler (1993)]{tayler} R. J. Tayler, Galaxies: structure and evolution, Cambridge University Press
+		\bibitem[Shu (1982)]{shu} F. H. Shu, 1982, The Physical Universe - An Introduction to Astronomy, University Science Books
+		\bibitem[Sch\"onrich et al. (2009)]{schoenrich} R. Sch\"{o}nrich, J, Binney \& W. Dehnen, 2009, Local Kinematics and the Local Standard of Rest, arXiv:0912.3693v1 [astro-ph.GA]
+		\bibitem[Bobylev \& Bajkova (2018)]{boby} V. V. Bobylev \& A. T. Bajkova, 2018, Kinematics of the Galaxy from OB Stars with Data from the Gaia DR2 Catalogue, arXiv:1809.10512v1 arXiv:1809.10512v1
+		\bibitem[Francis \& Anderson (2018)]{anotherlsr} C. Francis \& E. Anderson, 2018, The local standard of rest and the well in the velocity distribution, arXiv:1311.2069v2 \textcolor{red}{in paper: 2018, on archive since 2113!?}
+		\bibitem[Ding et al. (2018)]{ding} P.-J. Ding, Z. Zhu \& J.-C. Liu, 2018, Local standard of rest based on Gaia DR2 catalog, Research in Astronomy and Astrophysics
+		
+	\end{thebibliography}
+	
+\end{document}
