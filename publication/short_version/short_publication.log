@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.2.23)  18 APR 2019 10:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.2.23)  20 APR 2019 13:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -565,11 +565,11 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 39.
 
-<plots.png, id=18, 1123.19624pt x 593.21625pt>
+<plots.png, id=18, 1086.0575pt x 659.46375pt>
 File: plots.png Graphic file (type png)
  <use plots.png>
 Package pdftex.def Info: plots.png used on input line 81.
-(pdftex.def)             Requested size: 436.15294pt x 230.34866pt.
+(pdftex.def)             Requested size: 436.15294pt x 264.83739pt.
  [1{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -614,7 +614,7 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2016/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2016/texmf-d
 ist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2016/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmti8.pfb>
-Output written on short_publication.pdf (4 pages, 253391 bytes).
+Output written on short_publication.pdf (4 pages, 252497 bytes).
 PDF statistics:
  156 PDF objects out of 1000 (max. 8388607)
  127 compressed objects within 2 object streams

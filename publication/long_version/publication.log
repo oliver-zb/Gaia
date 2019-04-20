@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.2.23)  18 APR 2019 10:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.2.23)  20 APR 2019 13:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -556,11 +556,11 @@ Overfull \hbox (9.03374pt too wide) in paragraph at lines 231--231
  []
 
 [1{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<plots.png, id=54, 1123.19624pt x 593.21625pt>
+<plots.png, id=54, 1086.0575pt x 659.46375pt>
 File: plots.png Graphic file (type png)
  <use plots.png>
 Package pdftex.def Info: plots.png used on input line 301.
-(pdftex.def)             Requested size: 436.15294pt x 230.34866pt.
+(pdftex.def)             Requested size: 436.15294pt x 264.83739pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 307--322
 
@@ -599,7 +599,7 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2016/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2016/texmf-d
 ist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2016/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmti8.pfb>
-Output written on publication.pdf (5 pages, 261664 bytes).
+Output written on publication.pdf (5 pages, 260760 bytes).
 PDF statistics:
  174 PDF objects out of 1000 (max. 8388607)
  144 compressed objects within 2 object streams
