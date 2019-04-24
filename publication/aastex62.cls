@@ -6426,7 +6426,7 @@ Affiliations\vrule depth 18pt width0pt}\nobreak
 
 \def\correspondingauthor#1{{
 \renewcommand\thefootnote{\hskip-12pt}
-\footnote{Corresponding authors: #1\ifmodern\vrule depth 5pt
+\footnote{Corresponding author: #1\ifmodern\vrule depth 5pt
 width 0pt\relax\fi}}}
 
 \let\saveemail\email
