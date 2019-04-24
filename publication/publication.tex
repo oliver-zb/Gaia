@@ -31,13 +31,13 @@
 	
 \section{Introduction}\label{intro}
 	
-It is well known that as stars in the Galactic disk form from gas clouds orbiting in the gravitational field of the Galaxy, younger stars are more likely to be on approximately closed orbits like the gas. On the other hand, older stars follow more eccentric orbits with lower tangential velocities.  The youngest stars in the solar neighborhood should be at the dynamical local standard of rest (LSR), which follows a notional closed orbit around the Galaxy \citep[see e.g.,][]{shu}.  There are different methods for determination of the LSR, based on the general principle that since hotter stars have a shorter lifetime than colder ones, they are in average younger:  i)~Str\"omgren's method involving finding a relation between mean velocity and velocity dispersion for different stellar populations, and extrapolating to zero velocity dispersion \citep[e.g.,][]{ding}), ii)~determining nearly-circular orbits from 6D phase-space data of the stars \citep{francis}, iii)~specifically identifying young OB stars \citep{boby}, iv)~fitting the position and velocity data to a model of the phase-space distribution function \citep{schoenrich}.
+It is well known that as stars in the Galactic disk form from gas clouds orbiting in the gravitational field of the Galaxy, younger stars are more likely to be on approximately closed orbits like the gas. On the other hand, older stars follow more eccentric orbits with lower tangential velocities.  The youngest stars in the solar neighborhood should be at the dynamical local standard of rest (LSR), which follows a notional closed orbit around the Galaxy \citep[see e.g.,][]{shu}.  There are different methods for determination of the LSR, based on the general principle that since hotter stars have a shorter lifetime than colder ones, they are in average younger:  i)~Str\"omgren's method involving finding a relation between mean velocity and velocity dispersion for different stellar populations, and extrapolating to zero velocity dispersion \citep[e.g.,][]{ding}, ii)~determining nearly-circular orbits from 6D phase-space data of the stars \citep{francis}, iii)~specifically identifying young OB stars \citep{boby}, iv)~fitting the position and velocity data to a model of the phase-space distribution function \citep{schoenrich}.
 
 Since the amount of data provided by the \textit{Gaia} mission \citep{gaiamission} is significantly larger than previous data sets, another and very simple approach is also possible: examine the mean velocities in different effective-temperature bins, and if a high-temperature asymptote is evident, interpret is as the nearly-circular orbits of young stars.
 	
 \section{Data selection \& Data transformation} 
 
-Our analysis is based on the \textit{Gaia} DR2 radial velocity survey.\footnote{\url{http://cdn.gea.esac.esa.int/Gaia/gdr2/gaia_source_with_rv/csv/}}.  From this survey we extract stars within $100\rm\,pc$ of our Sun and fractional accuracies of $\sigma_{\mu_\alpha^*}/\mu_\alpha^*,\sigma_{\mu_\delta}/\mu_delta,\sigma_{\bar\omega}/\bar\omega<0.1$ and $\sigma_{v_{\rm rad}}\leq 5\rm\,km\,s^{-1}$.
+Our analysis is based on the \textit{Gaia} DR2 radial velocity survey.\footnote{\url{http://cdn.gea.esac.esa.int/Gaia/gdr2/gaia_source_with_rv/csv/}}  From this survey we extract stars within $100\rm\,pc$ of our Sun and fractional accuracies of $\sigma_{\mu_{\alpha^*}}/\mu_{\alpha^*},\sigma_{\mu_\delta}/\mu_\delta,\sigma_{\bar\omega}/\bar\omega<0.1$ and $\sigma_{v_{\rm rad}}\leq 5\rm\,km\,s^{-1}$.
 
 To obtain the velocities in cartesian coordinates $\mu_{\alpha^*},\mu_{\delta},v_{\rm rad}$ are transformed using
 %	
@@ -61,9 +61,9 @@ To obtain the velocities in cartesian coordinates $\mu_{\alpha^*},\mu_{\delta},v
 %	
 where $d=1/\omega$ is the distance in au, and $k$ is introduced to transform $\rm au\,yr^{-1}$ to $\rm km\,s^{-1}$. These velocities in Equatorial coordinates are transformed to Galactic coordinates $(U,V,W)$ by multiplying with a rotation matrix
 \begin{equation}
-	\mathbf{\textit{A}}{'}_{G}=\mathbf{\textit{R}}_{z}(-l_{\Omega})\mathbf{\textit{R}}_{x}(90^\circ-\delta_G)\mathbf{\textit{R}}_z(\alpha_G+90^\circ).
+	\mathbf{\textit{A}}{'}_{G}=\mathbf{\textit{R}}_{z}(-l_{\Omega}) \, \mathbf{\textit{R}}_{x}(90^\circ-\delta_G) \, \mathbf{\textit{R}}_z(\alpha_G+90^\circ)
 	\end{equation}
-given in equations (3.60) \& (3.61) of the \textit{Gaia} DR2 documentation \citep{documentation}.
+as given in equations (3.60) \& (3.61) of the \textit{Gaia} DR2 documentation \citep{documentation}.
 	
 \section{Local kinematics and the LSR}
 
@@ -71,12 +71,10 @@ given in equations (3.60) \& (3.61) of the \textit{Gaia} DR2 documentation \cite
 The stars from the dataset were binned by temperature in steps of $200\rm\,K$, with bins having less than 300 stars neglected. Then, the mean values for each component of $\left( U, V, W\right)$ were calculated for each bin. The temperature-dependent behavior can be found in Figure~\ref{fig:lsrmean}.
 
 	\begin{figure}[ht!]
-        \epsscale{1.2}
+        \epsscale{1.25}
 	\plotone{plots.eps}
 	\caption{Heliocentric velocities $U$ (radial), $V$ (azimuthal), $W$ (vertical) for stars with 100~pc of the Sun, as a function of effective temperature.\label{fig:lsrmean}}
 	\end{figure}
-
-\section{Local Standard of Rest} \label{lsr}
 
 We see that the radial and vertical velocities have no evident trend with effective temperature.  The azimuthal velocity also has no trend for stars cooler than the Sun, but for hotter stars the mean velocity drops, before levelling off again for $T>6500\rm\,K$.  As described in Section~\ref{intro}, we look at the velocities of high temperature stars. The highest temperature bin with more than 300 stars is $6800\rm\,K$ and has
 $$ \left( U, V, W\right)_\odot=\left( 11.9\pm1.2, 11.9\pm0.7, 6.4\pm0.5 \right) \rm\,km\;s^{-1} $$.
