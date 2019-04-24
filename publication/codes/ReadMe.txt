@@ -1,4 +1,4 @@
-Title: Local Kinematics and the Local Standard of Rest with Gaia Radial Velocity Survey
+Title: A new estimate of the Local Standard of Rest using Gaia Radial Velocity Survey
 Authors: O.Zbinden & P. Saha
 
 Description of contents: This package contains two python files. To be able to use them, one has to download the data containing information of radial velocities from the Gaia website, 
