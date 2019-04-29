@@ -32,12 +32,12 @@
 	
 It is well known that as stars in the Galactic disk form from gas clouds orbiting in the gravitational field of the Galaxy, younger stars are more likely to be on approximately closed orbits like the gas. On the other hand, older stars follow more eccentric orbits with lower tangential velocities.  The youngest stars in the solar neighborhood should be at the dynamical local standard of rest (LSR), which follows a notional closed orbit around the Galaxy \citep[see e.g.,][]{shu}.  There are different methods for determination of the LSR, based on the general principle that since hotter stars have a shorter lifetime than colder ones, they are in average younger:  i)~Str\"omgren's method involving finding a relation between mean velocity and velocity dispersion for different stellar populations, and extrapolating to zero velocity dispersion \citep[e.g.,][]{ding}, ii)~determining nearly-circular orbits from 6D phase-space data of the stars \citep{francis}, iii)~specifically identifying young OB stars \citep{boby}, iv)~fitting the position and velocity data to a model of the phase-space distribution function \citep{schoenrich}.
 
-Since the amount of data provided by the \textit{Gaia} mission \citep{gaiamission} is significantly larger than previous data sets, another and very simple approach is also possible: examine the mean velocities in different effective-temperature bins, and if a high-temperature asymptote is evident, interpret is as the nearly-circular orbits of young stars.
+Since the amount of data provided by the \textit{Gaia} mission \citep{gaiamission} is significantly larger than previous data sets, another and very simple approach is also possible: examine the mean velocities in different effective-temperature bins, and if a high-temperature asymptote is evident, interpret it as the nearly-circular orbits of young stars.
 	
 \section{Data selection \& Data transformation} 
 
-Our analysis is based on the \textit{Gaia} DR2 radial velocity survey.\footnote{\url{http://cdn.gea.esac.esa.int/Gaia/gdr2/gaia_source_with_rv/csv/}}  From this survey we extract stars within $100\rm\,pc$ of our Sun and fractional accuracies of $\sigma_{\mu_{\alpha^*}}/\mu_{\alpha^*},\sigma_{\mu_\delta}/\mu_\delta,\sigma_{\bar\omega}/\bar\omega<0.1$ and $\sigma_{v_{\rm rad}}\leq 5\rm\,km\,s^{-1}$.
-
+Our analysis is based on the \textit{Gaia} DR2 radial velocity survey.\footnote{\url{http://cdn.gea.esac.esa.int/Gaia/gdr2/gaia_source_with_rv/csv/}}  From this survey we extract stars within $100\rm\,pc$ of our Sun and fractional accuracies of $\sigma_{\mu_{\alpha^*}}/\mu_{\alpha^*},\sigma_{\mu_\delta}/\mu_\delta,\sigma_{\varpi}/\varpi<0.1$ and $\sigma_{v_{\rm rad}}\leq 5\rm\,km\,s^{-1}$.
+\noindent
 To obtain the velocities in cartesian coordinates $\mu_{\alpha^*},\mu_{\delta},v_{\rm rad}$ are transformed using
 %	
 	\begin{equation}
@@ -58,7 +58,7 @@ To obtain the velocities in cartesian coordinates $\mu_{\alpha^*},\mu_{\delta},v
 	\right),	
 	\end{equation}
 %	
-where $d=1/\omega$ is the distance in au, and $k$ is introduced to transform $\rm au\,yr^{-1}$ to $\rm km\,s^{-1}$. These velocities in Equatorial coordinates are transformed to Galactic coordinates $(U,V,W)$ by multiplying with a rotation matrix
+where $d=1/\varpi$ is the distance in au, and $k$ is introduced to transform $\rm au\,yr^{-1}$ to $\rm km\,s^{-1}$. These velocities in Equatorial coordinates are transformed to Galactic coordinates $(U,V,W)$ by multiplying with a rotation matrix
 \begin{equation}
 	\mathbf{\textit{A}}{'}_{G}=\mathbf{\textit{R}}_{z}(-l_{\Omega}) \, \mathbf{\textit{R}}_{x}(90^\circ-\delta_G) \, \mathbf{\textit{R}}_z(\alpha_G+90^\circ)
 	\end{equation}
@@ -87,8 +87,8 @@ a simple but robust way to determine the LSR. It would be interesting to test ou
 		
 		\bibitem[Gaia Collaboration et al. (2016)]{gaiamission} Gaia Collaboration et al. 2016, Description of the Gaia mission (spacecraft, instruments, survey and measurement principles, and operations)
 		\bibitem[Gaia DR2 Documentation (2018)]{documentation} European Space Agency \& Gaia Data Processing and Analysis Consortium, 2018, Documentation release 1.0
-		\bibitem[Keel (2007)]{keel}W.C. Keel, 2007, The Road to Galaxy Formation, Springer, Second edition
-		\bibitem[Tayler (1993)]{tayler} R. J. Tayler, Galaxies: structure and evolution, Cambridge University Press
+%		\bibitem[Keel (2007)]{keel}W.C. Keel, 2007, The Road to Galaxy Formation, Springer, Second edition
+%		\bibitem[Tayler (1993)]{tayler} R. J. Tayler, Galaxies: structure and evolution, Cambridge University Press
 		\bibitem[Shu (1982)]{shu} F. H. Shu, 1982, The Physical Universe - An Introduction to Astronomy, University Science Books
 		\bibitem[Sch\"onrich et al. (2009)]{schoenrich} R. Sch\"{o}nrich, J, Binney \& W. Dehnen, 2009, Local Kinematics and the Local Standard of Rest, arXiv:0912.3693v1 [astro-ph.GA]
 		\bibitem[Bobylev \& Bajkova (2018)]{boby} V. V. Bobylev \& A. T. Bajkova, 2018, Kinematics of the Galaxy from OB Stars with Data from the Gaia DR2 Catalogue, arXiv:1809.10512v1 arXiv:1809.10512v1
